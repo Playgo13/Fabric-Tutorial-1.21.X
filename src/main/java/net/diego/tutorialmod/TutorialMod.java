@@ -1,6 +1,7 @@
 package net.diego.tutorialmod;
 
 import net.diego.tutorialmod.block.ModBlocks;
+import net.diego.tutorialmod.item.ModItemGroups;
 import net.diego.tutorialmod.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -13,7 +14,9 @@ public class TutorialMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+
 	}
 }
