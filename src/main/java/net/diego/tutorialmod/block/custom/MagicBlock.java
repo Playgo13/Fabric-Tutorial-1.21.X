@@ -1,6 +1,7 @@
 package net.diego.tutorialmod.block.custom;
 
 import net.diego.tutorialmod.item.ModItems;
+import net.diego.tutorialmod.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -25,12 +26,12 @@ public class MagicBlock extends Block {
 
 
 
-
+    //constructor
     public MagicBlock(Settings settings) {
         super(settings);
     }
 
-
+    //used when you click on the block
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 
@@ -38,12 +39,12 @@ public class MagicBlock extends Block {
 
         return ActionResult.SUCCESS;
     }
-
+    //used when you throw an item on the block
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
 
         if(entity instanceof ItemEntity itemEntity) {
-            if(itemEntity.getStack().getItem() == ModItems.RAW_PINK_GARNET) {
+            if(isValidItem(itemEntity.getStack())) {
                 itemEntity.setStack(new ItemStack(Items.DIAMOND, itemEntity.getStack().getCount()));
             }
         }
@@ -51,6 +52,12 @@ public class MagicBlock extends Block {
         super.onSteppedOn(world, pos, state, entity);
     }
 
+    private boolean isValidItem(ItemStack stack) {
+        return stack.isIn(ModTags.Items.TRANSFORMABLE_ITEMS);
+    }
+
+
+    //Used for the description of the item -> lang.en_us.json to see the translation
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
 
